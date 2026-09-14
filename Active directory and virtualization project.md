@@ -69,13 +69,56 @@ We're going to turn it into:
           │                       │
      Active Directory            DNS
 
-Later, Windows clients will ask DC01:
 
-"Who is Hector?"
+once we installed the Active Directory feature though the Installationn Manager, we'll promote the VM to Controller Domain 
+<img width="1031" height="857" alt="image" src="https://github.com/user-attachments/assets/1811d512-0a4d-45ef-b3cc-8fac4dbc70a1" />
 
-and DC01 will be able to answer:
+<img width="767" height="564" alt="image" src="https://github.com/user-attachments/assets/34e950db-b28b-4e06-9da9-75490b1a4ea3" />
+We will create a password
 
-"Hector is a member of the IT department and belongs to these security groups."
+<img width="758" height="559" alt="image" src="https://github.com/user-attachments/assets/109ba01d-2273-464f-ae21-e818349f2fb5" />
 
-That's the fundamental idea behind Active Directory.
+We are done with the AC administrator assigment
+<img width="1028" height="834" alt="image" src="https://github.com/user-attachments/assets/44774ff2-8271-490b-8c80-ffef5be41102" />
+
+just wait to the VM to restart 
+
+<img width="1027" height="820" alt="image" src="https://github.com/user-attachments/assets/4a26d2c3-7b14-462a-b547-d507ec9232a9" />
+Now we have correctly installed the VM and the Active Directory with the Admin role for this user.
+
+**Phase 3 — Build the Active Directory structure**
+
+Now we start doing something that actually resembles a real company environment.
+
+We'll create:
+
+rhinwood.local
+AD-Users:
+Management
+IT
+Sales
+HR
+
+AD-Computers:
+Workstations
+Servers
+
+AD-Groups:
+GRP-IT-Admins
+GRP-Sales
+GRP-HR
+GRP-ADM-Management
+
+OUs (Organizational Units) let administrators:
+
+Apply different Group Policies to different departments.
+Organize users and computers.
+Delegate administrative permissions.
+Manage hundreds/thousands of objects systematically.
+Separate workstations from servers.
+
+We create everything and it looks like this 
+
+<img width="949" height="785" alt="image" src="https://github.com/user-attachments/assets/bb078ac4-bf42-41c6-8f47-b97e440d8324" />
+
 
