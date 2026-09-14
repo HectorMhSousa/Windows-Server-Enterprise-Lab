@@ -121,4 +121,8 @@ We create everything and it looks like this
 
 <img width="949" height="785" alt="image" src="https://github.com/user-attachments/assets/bb078ac4-bf42-41c6-8f47-b97e440d8324" />
 
+Now we have renamed the UO and users to keep it credible, and we assign every person to their respective department group
 
+<img width="945" height="846" alt="image" src="https://github.com/user-attachments/assets/fcd916ed-518f-4277-bded-238bd0f60c16" />
+
+Now we are creating a share folder, for this lab we will use the same server to allow a shared folder, we have to say that this practice its not recomendable, 
