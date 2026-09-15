@@ -125,4 +125,47 @@ Now we have renamed the UO and users to keep it credible, and we assign every pe
 
 <img width="945" height="846" alt="image" src="https://github.com/user-attachments/assets/fcd916ed-518f-4277-bded-238bd0f60c16" />
 
-Now we are creating a share folder, for this lab we will use the same server to allow a shared folder, we have to say that this practice its not recomendable, 
+Now we are creating a share folder, for this lab we will use the same server to allow a shared folder, we have to say that this practice its not recomendable, we will do it just for academical reasons.
+
+<img width="1029" height="790" alt="image" src="https://github.com/user-attachments/assets/44688eee-bf90-43bd-8d9e-22f8c0e1e5b3" />
+
+Now that we have everything running correctly, we will create our first terminal, I will call it CLIENT01. 
+
+<img width="963" height="747" alt="image" src="https://github.com/user-attachments/assets/aa1f3251-5f9e-41b7-bb7e-4ded81946ef1" />
+
+WE WILL PROCEED with windows 10 installation
+
+<img width="1038" height="865" alt="image" src="https://github.com/user-attachments/assets/cf2c0c6e-5e04-4736-906a-c444c69ff5de" />
+
+<img width="919" height="732" alt="image" src="https://github.com/user-attachments/assets/523549cf-3102-4775-a090-62d0e1c7d538" />
+
+<img width="1023" height="853" alt="image" src="https://github.com/user-attachments/assets/101e2ecd-0b2a-4500-bcc0-5596a4e0fdf2" />
+
+<img width="1026" height="855" alt="image" src="https://github.com/user-attachments/assets/071d5b17-0941-4bd3-b40e-77dfda25acd9" />
+
+At this point we have our first workstation correctly configured and atached to our domain, now we will create our first GPO
+
+<img width="1030" height="860" alt="image" src="https://github.com/user-attachments/assets/abcfdfcb-bc49-4a05-abb6-1239841c89f1" />
+
+This GPO blocks the terminal passed 15min
+
+<img width="870" height="956" alt="image" src="https://github.com/user-attachments/assets/3fdb0be9-7562-4eb8-b00a-e861f950f8b5" />
+
+
+in the process we have a little problem with tim syncronization. We solve it.
+
+Diagnosed and resolved an Active Directory Group Policy deployment failure caused by domain time synchronization issues, including Windows Time configuration and verification with w32tm.
+
+Next phase is phase 8 we wil do the follow things:
+
+We'll configure things such as:
+
+🔐 Password policy
+🔒 Account lockout policy
+🚫 Prevent users from accessing certain Windows settings
+🖥️ Configure workstation security settings
+📁 Map the appropriate department network drive automatically
+👤 Apply different policies to different departments
+🧪 Test the policies with Carlos, Maria, Laura and David
+
+That will turn RHINWOOD - Workstation Security into a much more convincing junior sysadmin portfolio project.
