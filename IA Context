@@ -1,0 +1,778 @@
+all Phases and context for IA helper
+
+Yes. I'll make this as the **master project script/roadmap**. If we lose context later, you can paste this back to me and say **"Continue Rhinwood Project from here"**, and we'll know exactly where we are.
+
+I've also saved the project state so I can use it as context in future conversations.
+
+# 🏢 RHINWOOD TECHNOLOGIES
+
+## Windows Server Enterprise Lab — Master Project Roadmap
+
+**Project type:** Enterprise IT Homelab / Portfolio Project
+**Hypervisor:** VirtualBox
+**Primary Server:** Windows Server 2025
+**Clients:** Windows 11
+**Linux Server:** To be added
+**Domain:** `rhinwood.local`
+**Network:** `192.168.10.0/24`
+
+---
+
+# 🗺️ PROJECT ROADMAP
+
+PHASE 1  → Virtual Infrastructure
+    ↓
+PHASE 2  → Active Directory / DNS
+    ↓
+PHASE 3  → Organizational Structure
+    ↓
+PHASE 4  → Users & Security Groups
+    ↓
+PHASE 5  → File Server & NTFS Permissions
+    ↓
+PHASE 6  → Windows Clients & Domain Authentication
+    ↓
+PHASE 7  → Basic Group Policy + Time Synchronization
+    ↓
+PHASE 8  → Password & Account Security
+    ↓
+PHASE 9  → Department-Specific Group Policies
+    ↓
+PHASE 10 → Automatic Network Drive Mapping
+    ↓
+PHASE 11 → Additional Windows Client
+    ↓
+PHASE 12 → Linux Server Integration
+    ↓
+PHASE 13 → Monitoring
+    ↓
+PHASE 14 → Backup & Recovery
+    ↓
+PHASE 15 → Security Hardening
+    ↓
+PHASE 16 → Documentation / Portfolio
+```
+
+---
+
+# ✅ PHASE 1 — Virtual Infrastructure
+
+### Objective
+
+Create an isolated enterprise lab.
+
+### Completed
+
+* [x] Install/configure VirtualBox
+* [x] Create Host-Only network
+* [x] Configure `192.168.10.0/24`
+* [x] Create DC01 VM
+* [x] Install Windows Server 2025
+* [x] Allocate 4 GB RAM / 2 CPU
+* [x] Create 50 GB dynamic disk
+* [x] Configure static IP
+* [x] Configure isolated networking
+* [x] Rename server to `DC01`
+
+### DC01
+
+```text
+IP:       192.168.10.10
+Mask:     255.255.255.0
+Gateway:  None
+DNS:      192.168.10.10
+```
+
+---
+
+# ✅ PHASE 2 — Active Directory & DNS
+
+### Objective
+
+Create the corporate domain.
+
+### Completed
+
+* [x] Install AD DS
+* [x] Promote DC01
+* [x] Create new forest
+* [x] Create `rhinwood.local`
+* [x] Install DNS
+* [x] Verify DNS zone
+* [x] Verify domain authentication
+* [x] Verify `nslookup`
+
+```text
+Domain:
+rhinwood.local
+```
+
+---
+
+# ✅ PHASE 3 — Active Directory Structure
+
+### Objective
+
+Create an organized AD environment.
+
+### Completed
+
+```text
+AD-Users
+├── Management
+├── IT
+├── Sales
+└── HR
+
+AD-Computers
+├── Workstations
+└── Servers
+
+AD-Groups
+├── GRP-IT-Admins
+├── GRP-Sales
+├── GRP-HR
+└── GRP-ADM-Management
+```
+
+Default AD containers remain intact:
+
+```text
+Users
+Computers
+Domain Controllers
+```
+
+---
+
+# ✅ PHASE 4 — Users & Security Groups
+
+### Objective
+
+Create realistic corporate identities.
+
+### Completed
+
+| User             | Department | Group                |
+| ---------------- | ---------- | -------------------- |
+| Carlos Rodriguez | Sales      | `GRP-Sales`          |
+| Maria Santos     | IT         | `GRP-IT-Admins`      |
+| Laura Gomez      | HR         | `GRP-HR`             |
+| David Martinez   | Management | `GRP-ADM-Management` |
+
+### Principle demonstrated
+
+```text
+User
+ ↓
+Security Group
+ ↓
+Permissions
+```
+
+Instead of assigning permissions individually to every employee.
+
+---
+
+# ✅ PHASE 5 — File Server & Permissions
+
+### Objective
+
+Create departmental shared storage.
+
+### Completed
+
+```text
+C:\CompanyData
+├── IT
+├── Sales
+├── HR
+└── Management
+```
+
+Network share:
+
+```text
+\\DC01\CompanyData
+```
+
+### Share permissions
+
+```text
+Everyone → Full Control
+```
+
+### NTFS permissions
+
+```text
+Administrators → Full Control
+SYSTEM         → Full Control
+Department     → Modify
+```
+
+Inheritance disabled on departmental folders.
+
+### Testing completed
+
+```text
+Maria
+ ├── IT      → WRITE ✅
+ └── Sales   → DENIED ❌
+
+Carlos
+ ├── Sales   → WRITE ✅
+ └── IT      → DENIED ❌
+```
+
+---
+
+# ✅ PHASE 6 — Windows Domain Clients
+
+### Objective
+
+Deploy corporate workstations.
+
+### Completed
+
+```text
+DC01
+ │
+ ├── CLIENT01
+ │
+ └── CLIENT02
+```
+
+Both:
+
+* [x] Windows 11
+* [x] Joined to `rhinwood.local`
+* [x] Authenticated against DC01
+* [x] Tested with domain accounts
+* [x] Placed under `AD-Computers → Workstations`
+
+---
+
+# ✅ PHASE 7 — Group Policy & Time Synchronization
+
+### Objective
+
+Begin centralized workstation management.
+
+### GPO
+
+```text
+RHINWOOD - Workstation Security
+```
+
+### Completed
+
+Configured:
+
+```text
+Interactive logon:
+Machine inactivity limit
+= 900 seconds
+= 15 minutes
+```
+
+Verified with:
+
+```cmd
+gpupdate /force
+gpresult /scope computer /r
+```
+
+Registry verification:
+
+```cmd
+reg query "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v InactivityTimeoutSecs
+```
+
+### Troubleshooting completed
+
+Discovered domain time synchronization failure.
+
+Used:
+
+```cmd
+w32tm /query /status
+w32tm /query /source
+w32tm /stripchart /computer:DC01 /samples:5 /dataonly
+```
+
+Initial difference:
+
+```text
+≈ +32388 seconds
+≈ 9 hours
+```
+
+After correcting time configuration:
+
+```text
+≈ +34 seconds
+```
+
+Then:
+
+```text
+Computer Policy update has completed successfully.
+User Policy update has completed successfully.
+```
+
+---
+
+# 🚧 PHASE 8 — Password & Account Security
+
+## NEXT PHASE
+
+### Objective
+
+Implement domain-wide authentication security.
+
+### Tasks
+
+* [ ] Configure minimum password length
+* [ ] Configure password complexity
+* [ ] Configure password history
+* [ ] Configure maximum password age
+* [ ] Configure minimum password age
+* [ ] Configure account lockout threshold
+* [ ] Configure account lockout duration
+* [ ] Configure lockout observation window
+
+### Testing
+
+```text
+Incorrect password
+       ↓
+Failed login
+       ↓
+Repeated failures
+       ↓
+Account locked
+       ↓
+Administrator unlocks account
+       ↓
+Successful login
+```
+
+### Documentation
+
+Capture screenshots of:
+
+* Domain password policy
+* Account lockout policy
+* Locked account
+* Account unlock
+* Successful authentication
+
+---
+
+# 🚧 PHASE 9 — Department-Specific GPOs
+
+### Objective
+
+Create policies that apply differently to each department.
+
+Potential structure:
+
+```text
+IT
+├── IT policies
+
+Sales
+├── Sales policies
+
+HR
+├── HR policies
+
+Management
+└── Management policies
+```
+
+### Tasks
+
+* [ ] Create IT GPO
+* [ ] Create Sales GPO
+* [ ] Create HR GPO
+* [ ] Create Management GPO
+* [ ] Link policies appropriately
+* [ ] Test GPO inheritance
+* [ ] Test policy application
+* [ ] Test with different users
+* [ ] Document results
+
+### Concepts
+
+* GPO linking
+* OU inheritance
+* Security filtering
+* Group Policy precedence
+* `gpresult`
+* `gpupdate`
+
+---
+
+# 🚧 PHASE 10 — Automatic Network Drive Mapping
+
+### Objective
+
+Automatically provide users with their departmental storage.
+
+Example:
+
+```text
+Maria logs in
+      ↓
+GRP-IT-Admins
+      ↓
+IT policy
+      ↓
+I: → \\DC01\CompanyData\IT
+```
+
+Carlos:
+
+```text
+Carlos logs in
+      ↓
+GRP-Sales
+      ↓
+Sales policy
+      ↓
+S: → \\DC01\CompanyData\Sales
+```
+
+### Tasks
+
+* [ ] Configure drive mapping
+* [ ] Use Group Policy Preferences
+* [ ] Configure security-group targeting
+* [ ] Test IT user
+* [ ] Test Sales user
+* [ ] Test HR user
+* [ ] Test Management user
+* [ ] Verify unauthorized access remains blocked
+
+---
+
+# 🚧 PHASE 11 — Additional Windows Client
+
+### Objective
+
+Expand the workstation environment.
+
+Current:
+
+```text
+DC01
+ ├── CLIENT01
+ └── CLIENT02
+```
+
+Target:
+
+```text
+DC01
+ ├── CLIENT01
+ ├── CLIENT02
+ └── CLIENT03
+```
+
+### Tasks
+
+* [ ] Create CLIENT03
+* [ ] Install Windows 11
+* [ ] Configure network
+* [ ] Join domain
+* [ ] Move computer account to Workstations OU
+* [ ] Test authentication
+* [ ] Test GPO
+* [ ] Test network drives
+* [ ] Test permissions
+
+---
+
+# 🚧 PHASE 12 — Linux Server Integration
+
+### Objective
+
+Introduce Linux infrastructure into the Windows environment.
+
+Target:
+
+```text
+                    DC01
+                     │
+              rhinwood.local
+                     │
+            ┌────────┴────────┐
+            │                 │
+       Windows Clients     LINUX01
+```
+
+Possible OS:
+
+```text
+Debian / Ubuntu Server
+```
+
+### Initial services
+
+* [ ] SSH
+* [ ] Samba
+* [ ] Firewall
+* [ ] Static networking
+* [ ] DNS configuration
+* [ ] Bash administration
+* [ ] Automated scripts
+* [ ] Linux permissions
+
+### Integration scenarios
+
+* [ ] Windows → Linux SMB access
+* [ ] Linux → Windows SMB access
+* [ ] DNS resolution
+* [ ] Service monitoring
+* [ ] Backup destination
+
+---
+
+# 🚧 PHASE 13 — Monitoring
+
+### Objective
+
+Monitor infrastructure availability and health.
+
+Potential solution:
+
+**Zabbix**
+
+Target:
+
+```text
+DC01
+ ├── CPU
+ ├── RAM
+ ├── Disk
+ ├── Network
+ └── Services
+
+CLIENT01
+ ├── Availability
+ └── Disk
+
+CLIENT02
+ ├── Availability
+ └── Disk
+
+LINUX01
+ ├── CPU
+ ├── RAM
+ ├── Disk
+ ├── Network
+ └── Services
+```
+
+### Tasks
+
+* [ ] Deploy monitoring server
+* [ ] Add DC01
+* [ ] Add CLIENT01
+* [ ] Add CLIENT02
+* [ ] Add LINUX01
+* [ ] Configure monitoring
+* [ ] Create dashboard
+* [ ] Generate test alert
+* [ ] Document alert workflow
+
+---
+
+# 🚧 PHASE 14 — Backup & Recovery
+
+### Objective
+
+Implement actual backup and recovery procedures.
+
+Target:
+
+```text
+                 DC01
+                  │
+             CompanyData
+                  │
+                  ▼
+              BACKUP
+                  │
+          ┌───────┴───────┐
+          │               │
+        Daily           Weekly
+```
+
+### Tasks
+
+* [ ] Design backup strategy
+* [ ] Configure backup destination
+* [ ] Schedule backups
+* [ ] Backup important data
+* [ ] Simulate data loss
+* [ ] Restore data
+* [ ] Verify restored files
+* [ ] Document recovery procedure
+
+### Important test
+
+```text
+Create file
+    ↓
+Backup
+    ↓
+Delete file
+    ↓
+Restore
+    ↓
+Verify file
+```
+
+The objective is to demonstrate **recovery**, not merely backup.
+
+---
+
+# 🚧 PHASE 15 — Security Hardening
+
+### Objective
+
+Move the lab from basic functionality toward a hardened environment.
+
+### Windows Security
+
+* [ ] Windows Defender configuration
+* [ ] Windows Firewall policies
+* [ ] UAC policies
+* [ ] Screen-lock policies
+* [ ] Disable unnecessary services
+* [ ] Secure SMB configuration
+* [ ] Windows security auditing
+
+### Active Directory
+
+* [ ] Separate administrative accounts
+* [ ] Least-privilege model
+* [ ] Administrative group review
+* [ ] Account auditing
+* [ ] Logon auditing
+* [ ] Security event analysis
+
+### Network
+
+* [ ] Firewall rules
+* [ ] Network segmentation
+* [ ] VLANs
+* [ ] Restricted management access
+
+---
+
+# 🚧 PHASE 16 — Final Documentation & Portfolio
+
+### Objective
+
+Turn the lab into a professional GitHub portfolio project.
+
+Repository structure:
+
+```text
+windows-server-enterprise-lab/
+│
+├── README.md
+│
+├── documentation/
+│   ├── architecture.md
+│   ├── active-directory.md
+│   ├── group-policy.md
+│   ├── permissions.md
+│   ├── networking.md
+│   ├── monitoring.md
+│   └── backup-recovery.md
+│
+├── screenshots/
+│   ├── 01-infrastructure/
+│   ├── 02-active-directory/
+│   ├── 03-users-groups/
+│   ├── 04-file-permissions/
+│   ├── 05-domain-clients/
+│   ├── 06-group-policy/
+│   ├── 07-security/
+│   ├── 08-linux/
+│   ├── 09-monitoring/
+│   └── 10-backups/
+│
+├── scripts/
+│   ├── powershell/
+│   └── bash/
+│
+└── diagrams/
+```
+
+---
+
+# 📝 Final CV Project Description
+
+Once completed, the project can be condensed into your CV as:
+
+> **Windows Server Enterprise Lab — Personal IT Infrastructure Project**
+> Designed and deployed a virtualized enterprise environment using Windows Server 2025, Active Directory, DNS, DHCP, Group Policy, Windows 11 clients and Linux infrastructure. Implemented centralized identity management, security groups, SMB/NTFS permissions, departmental access control, workstation policies, automated drive mapping, monitoring and backup/recovery procedures. Diagnosed and resolved domain time synchronization issues affecting Group Policy deployment.
+
+---
+
+# 🧭 CURRENT POSITION
+
+This is the most important part to preserve:
+
+```text
+PROJECT: Windows Server Enterprise Lab
+COMPANY: Rhinwood Technologies
+
+CURRENT PHASE:
+PHASE 7 — COMPLETED
+
+INFRASTRUCTURE:
+DC01      → Windows Server 2025
+CLIENT01  → Windows 11
+CLIENT02  → Windows 11
+
+DOMAIN:
+rhinwood.local
+
+NETWORK:
+192.168.10.0/24
+
+DC01:
+192.168.10.10
+
+NEXT PHASE:
+PHASE 8 — Password Policy & Account Lockout
+
+DO NOT SKIP AHEAD.
+
+WORKING METHOD:
+1. Explain the concept.
+2. Configure it together.
+3. Test it.
+4. Troubleshoot any failure.
+5. Verify the final result.
+6. Take screenshots.
+7. Document it for GitHub.
+8. Mark the phase complete.
+9. Move to the next phase.
+```
+
+## 🏁 Definition of "Finished"
+
+We don't consider the project finished merely because every checkbox has been configured.
+
+The final lab should demonstrate:
+
+**Deploy → Configure → Secure → Test → Break → Troubleshoot → Recover → Document.**
+
+That's the standard we'll use for the rest of the project.
