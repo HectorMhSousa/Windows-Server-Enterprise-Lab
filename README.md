@@ -99,6 +99,9 @@ The default AD containers such as Users, Computers, and Domain Controllers were 
 
 ---
 
+<img width="1029" height="790" alt="image" src="https://github.com/user-attachments/assets/780c8414-0ec0-4165-85ff-ef2440a04b46" />
+
+
 ## 👤 User & Group Management
 
 Several test users were created to represent different departments:
@@ -113,6 +116,8 @@ Several test users were created to represent different departments:
 This structure allows permissions to be assigned through security groups instead of individual user accounts. This follows a common Active Directory administration principle: assigning access through groups makes permission management easier to maintain and scale.
 
 ---
+
+<img width="945" height="846" alt="image" src="https://github.com/user-attachments/assets/65073136-cd82-4aa1-ab21-43cb4cadf074" />
 
 ## 📁 File Server & Permissions
 
@@ -171,9 +176,12 @@ These tests demonstrated that the department-based access control was functionin
 
 ---
 
-## 💻 Windows 11 Domain Client
+<img width="1026" height="855" alt="image" src="https://github.com/user-attachments/assets/d7369c76-8a8c-4e0e-9dc3-423578c7bf57" />
 
-A Windows 11 virtual machine was deployed as **CLIENT01**.
+
+## 💻 Windows 10 Domain Client
+
+A Windows 10 virtual machine was deployed as **CLIENT01**.
 
 The machine was joined to `rhinwood.local`. After joining the domain, CLIENT01 was moved into:
 
@@ -186,6 +194,9 @@ AD-Computers
 Domain users were then able to authenticate against Active Directory (e.g., `RHINWOOD\carlos.rodriguez`, `RHINWOOD\maria.santos`).
 
 ---
+
+<img width="1023" height="853" alt="image" src="https://github.com/user-attachments/assets/3c3e2db8-e770-432c-8569-443b7d8ccb14" />
+
 
 ## ⚙️ Group Policy
 
@@ -233,6 +244,9 @@ Expected value: `InactivityTimeoutSecs REG_DWORD 0x384` (`0x384` corresponds to 
 
 ---
 
+<img width="870" height="956" alt="image" src="https://github.com/user-attachments/assets/8fb2d456-1bf6-45f2-a70b-60f4d5cd4e6e" />
+
+
 ## 🛠️ Troubleshooting Experience
 
 One of the most valuable parts of the project was troubleshooting a real Active Directory problem. Initially, `gpupdate /force` failed on CLIENT01 because the computer's clock was not synchronized correctly with the domain controller.
@@ -271,35 +285,6 @@ User Policy update has completed successfully.
 * Windows Time Service troubleshooting & domain time hierarchy
 * Active Directory authentication time requirements
 * Group Policy troubleshooting, diagnosing configuration problems, and verifying remediation
-
----
-
-## 📸 Screenshots
-
-Screenshots documenting the different stages of the project are organized into the following structure:
-
-```text
-screenshots/
-│
-├── 01-infrastructure/
-├── 02-active-directory/
-├── 03-users-groups/
-├── 04-file-permissions/
-├── 05-domain-client/
-├── 06-group-policy/
-└── 07-troubleshooting/
-
-```
-
-### Examples
-
-#### Active Directory Structure
-
-#### Permission Testing
-
-Maria successfully writes to the IT folder:
-
-Access to the Sales folder is denied:
 
 ---
 
