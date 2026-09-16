@@ -1,0 +1,40 @@
+Project Part 2
+
+🏢 Rhinwood Technologies — Project Roadmap
+✅ Completed
+ VirtualBox infrastructure
+ Windows Server 2025 — DC01
+ Static network configuration
+ Active Directory Domain Services
+ DNS
+ DHCP
+ Organizational Units
+ Users and security groups
+ SMB file sharing
+ NTFS permissions
+ Department-based access control
+ Windows 11 client — CLIENT01
+ Windows 11 client — CLIENT02
+ Domain joining
+ Domain authentication
+ Group Policy
+ Windows Time synchronization
+ GPO troubleshooting
+
+🚧 Remaining Work
+1. 🔐 Password & Account Lockout Policies
+
+Configure domain-wide security policies for user accounts.
+
+We'll implement
+Minimum password length
+Password complexity
+Password history
+Maximum password age
+Minimum password age
+Account lockout threshold
+Account lockout duration
+Reset lockout counter
+
+
+
