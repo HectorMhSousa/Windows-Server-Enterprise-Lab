@@ -41,7 +41,7 @@ The environment was built using virtual machines connected to a private lab netw
 | :--- | :--- | :--- |
 | **Domain Controller** | Windows Server | Authentication and centralized administration |
 | **Directory Service** | Active Directory Domain Services | Domain users, computers, and groups |
-| **Name Resolution** | DNS | Name resolution and discovery of Active Directory services |
+| **Name Resolution** | DNS | Name resolution and discovery of ctive Directory services |
 | **Windows Client** | Windows | Authentication and resource access testing |
 | **File Sharing** | SMB | Access to shared network folders |
 | **Monitoring Server** | Ubuntu Server | Hosts Zabbix Server |
@@ -59,7 +59,7 @@ The environment was built using virtual machines connected to a private lab netw
 |  Windows Server   |   |  Windows Client   |   |   Ubuntu Server   |
 |-------------------|   |-------------------|   |-------------------|
 | Active Directory  |   | Domain-joined     |   | Zabbix Server     |
-| DNS               |   | workstation       |   | Web Interface     |
+| DNS               |   | workstations       |   | Web Interface     |
 | SMB               |   |                   |   | Agent 2           |
 +-------------------+   +-------------------+   +-------------------+
 ```
@@ -68,16 +68,15 @@ The environment was built using virtual machines connected to a private lab netw
 
 ### Installation Parameters
 
-*Fill in this table with the actual machine settings before publishing the repository.*
 
 | Parameter | Value |
 | :--- | :--- |
-| **Hypervisor** | `[VirtualBox / VMware / other]` |
-| **Active Directory domain** | `[domain.local]` |
+| **Hypervisor** | `[VirtualBox]` |
+| **Active Directory domain** | `[rhinwood.local]` |
 | **Domain Controller** | `[DC01]` |
-| **Domain Controller IP** | `[Domain Controller IP address]` |
-| **Zabbix Server** | `[ZABBIX01]` |
-| **Zabbix Server IP** | `[Zabbix Server IP address]` |
+| **Domain Controller IP** | `[192.168.10.10]` |
+| **Zabbix Server** | `[MONITOR01]` |
+| **Zabbix Server IP** | `[192.168.10.21]` |
 | **Lab network** | `192.168.10.0/24` |
 | **Monitoring server OS** | Ubuntu Server |
 | **Zabbix version** | 8.0 branch |
